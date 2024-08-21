@@ -4,6 +4,8 @@ export type Color = 'aka' | 'ao';
 
 export interface AppState {
   matchTime: number;
+  atoshiBarakuTime: number;
+  playSounds: boolean;
   time: number;
   isTimerRunning: boolean;
   akaScore: number;
@@ -16,6 +18,8 @@ export interface AppState {
 
 export const initialAppState: AppState = {
   matchTime: 90,
+  atoshiBarakuTime: 5,
+  playSounds: false,
   time: 90,
   isTimerRunning: false,
   akaScore: 0,
@@ -39,6 +43,8 @@ type BaseAction<
 type AppStateAction =
   | BaseAction<'reset'>
   | BaseAction<'match-time-set', { value: number }>
+  | BaseAction<'atoshi-baraku-time-set', { value: number }>
+  | BaseAction<'play-sounds-toggle'>
   | BaseAction<'timer-running-toggle'>
   | BaseAction<'timer-running-set', { value: boolean }>
   | BaseAction<'time-add', { value: number }>
@@ -55,11 +61,25 @@ function reducer(state: AppState, action: AppStateAction): AppState {
         ...initialAppState,
         time: state.matchTime,
         matchTime: state.matchTime,
+        atoshiBarakuTime: state.atoshiBarakuTime,
+        playSounds: state.playSounds,
       };
     case 'match-time-set':
       nextState = {
         ...state,
         matchTime: action.payload.value,
+      };
+      break;
+    case 'atoshi-baraku-time-set':
+      nextState = {
+        ...state,
+        atoshiBarakuTime: action.payload.value,
+      };
+      break;
+    case 'play-sounds-toggle':
+      nextState = {
+        ...state,
+        playSounds: !state.playSounds,
       };
       break;
     case 'timer-running-toggle':
