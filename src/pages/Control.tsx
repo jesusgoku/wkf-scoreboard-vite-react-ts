@@ -16,11 +16,15 @@ export function Control() {
   const [displaySettings, setDisplaySetting] = useState<boolean>(false);
 
   useEffect(() => {
-    if (state.playSounds && state.time === state.atoshiBarakuTime) {
+    if (
+      state.playSounds &&
+      state.isTimerRunning &&
+      state.time === state.atoshiBarakuTime
+    ) {
       sound.loop(false).play();
     }
 
-    if (state.playSounds && state.time === 0) {
+    if (state.playSounds && state.winner) {
       sound.loop(true).play();
 
       setTimeout(() => {
