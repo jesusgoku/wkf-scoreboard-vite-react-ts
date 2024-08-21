@@ -3,6 +3,7 @@ import { makeBroadcastReducer } from '../factories/makeBroadcastReducer';
 export type Color = 'aka' | 'ao';
 
 export interface AppState {
+  matchTime: number;
   time: number;
   isTimerRunning: boolean;
   akaScore: number;
@@ -14,6 +15,7 @@ export interface AppState {
 }
 
 export const initialAppState: AppState = {
+  matchTime: 90,
   time: 90,
   isTimerRunning: false,
   akaScore: 0,
@@ -36,6 +38,7 @@ type BaseAction<
 
 type AppStateAction =
   | BaseAction<'reset'>
+  | BaseAction<'match-time-set', { value: number }>
   | BaseAction<'timer-running-toggle'>
   | BaseAction<'timer-running-set', { value: boolean }>
   | BaseAction<'time-add', { value: number }>
@@ -48,7 +51,17 @@ function reducer(state: AppState, action: AppStateAction): AppState {
 
   switch (action.type) {
     case 'reset':
-      return { ...initialAppState };
+      return {
+        ...initialAppState,
+        time: state.matchTime,
+        matchTime: state.matchTime,
+      };
+    case 'match-time-set':
+      nextState = {
+        ...state,
+        matchTime: action.payload.value,
+      };
+      break;
     case 'timer-running-toggle':
       nextState = {
         ...state,

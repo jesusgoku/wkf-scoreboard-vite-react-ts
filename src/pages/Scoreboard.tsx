@@ -1,9 +1,9 @@
-import { AppState, Color, useAppState } from '../reducers/useAppReducer';
+import { AppState, useAppState } from '../reducers/useAppReducer';
 import { timeFormat } from '../utils/timeFormat';
+import { SCOREBOARD_COLORS } from '../constants';
 
 export function Scoreboard() {
   const state = useAppState();
-  const colors: Color[] = ['ao', 'aka'];
 
   return (
     <>
@@ -20,7 +20,7 @@ export function Scoreboard() {
       <p className="winner">{state.winner ? state.winner : '\u00A0'}</p>
 
       <div className="container">
-        {colors.map((color) => (
+        {SCOREBOARD_COLORS.map((color) => (
           <div className="color-container">
             <h2>{color.toUpperCase()}</h2>
             <p style={{ fontSize: '8vmin' }}>

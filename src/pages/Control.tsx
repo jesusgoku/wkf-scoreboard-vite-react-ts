@@ -1,37 +1,18 @@
 import { useInterval } from '../hooks/useInterval';
 import { timeFormat } from '../utils/timeFormat';
-import { AppState, Color, useAppReducer } from '../reducers/useAppReducer';
+import { AppState, useAppReducer } from '../reducers/useAppReducer';
 import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
+import { SCOREBOARD_COLORS } from '../constants';
 
 export function Control() {
   const [state, dispatch] = useAppReducer();
 
+  // -- Hooks
   useInterval(() => {
     if (state.isTimerRunning) {
       dispatch({ type: 'time-add', payload: { value: -1 } });
     }
   }, 1000);
-
-  function handleReset() {
-    dispatch({ type: 'timer-running-set', payload: { value: false } });
-    dispatch({ type: 'reset' });
-  }
-
-  function handleTimeStart() {
-    dispatch({ type: 'timer-running-set', payload: { value: true } });
-  }
-
-  function handleTimeEnd() {
-    dispatch({ type: 'timer-running-set', payload: { value: false } });
-  }
-
-  function handleTimeAdd() {
-    dispatch({ type: 'time-add', payload: { value: 1 } });
-  }
-
-  function handleTimeSubtract() {
-    dispatch({ type: 'time-add', payload: { value: -1 } });
-  }
 
   useKeyboardShortcut(
     (e) => e.key === ' ',
@@ -62,11 +43,50 @@ export function Control() {
     },
   );
 
-  const colors: Color[] = ['ao', 'aka'];
+  // -- Handlers
+  function handleReset() {
+    dispatch({ type: 'timer-running-set', payload: { value: false } });
+    dispatch({ type: 'reset' });
+  }
+
+  function handleTimeStart() {
+    dispatch({ type: 'timer-running-set', payload: { value: true } });
+  }
+
+  function handleTimeEnd() {
+    dispatch({ type: 'timer-running-set', payload: { value: false } });
+  }
+
+  function handleTimeAdd() {
+    dispatch({ type: 'time-add', payload: { value: 1 } });
+  }
+
+  function handleTimeSubtract() {
+    dispatch({ type: 'time-add', payload: { value: -1 } });
+  }
 
   return (
     <>
       <h1>Control</h1>
+      <div>
+        <p>Match Time</p>
+        <input
+          name="match-time"
+          type="number"
+          defaultValue={1}
+          min={0}
+          step={1}
+          placeholder="Match Time"
+          value={state.matchTime}
+          onChange={(e) => {
+            dispatch({
+              type: 'match-time-set',
+              payload: { value: parseInt(e.target.value, 10) },
+            });
+          }}
+        />
+      </div>
+
       <p style={{ color: state.isTimerRunning ? 'green' : 'white' }}>
         Time: {timeFormat(state.time)}
       </p>
@@ -87,7 +107,7 @@ export function Control() {
       </button>
 
       <div className="container">
-        {colors.map((color) => (
+        {SCOREBOARD_COLORS.map((color) => (
           <div className="color-container">
             <h2>{color.toUpperCase()}</h2>
             <p>Score: {state[`${color}Score` as keyof AppState]}</p>
