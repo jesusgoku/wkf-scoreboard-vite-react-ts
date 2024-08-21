@@ -28,8 +28,8 @@ export interface AppState {
 
 export const initialAppState: AppState = {
   matchTime: 90,
-  atoshiBarakuTime: 5,
-  playSounds: false,
+  atoshiBarakuTime: 15,
+  playSounds: true,
   time: 90,
   isTimerRunning: false,
   akaScore: 0,
