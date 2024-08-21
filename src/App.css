@@ -1,3 +1,8 @@
+:root {
+  --ao-color: blue;
+  --aka-color: red;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -43,11 +48,48 @@
 
 .container {
   display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+@media screen and (orientation: portrait) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+.timer-container {
+  flex: 1;
+  order: 2;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .color-container {
   flex: 1;
-  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.color-container.ao {
+  background-color: var(--ao-color);
+  order: 1;
+}
+
+.color-container.aka {
+  background-color: var(--aka-color);
+  order: 3;
+}
+
+.color-container.scoreboard.ao {
+  order: 3;
+}
+
+.color-container.scoreboard.aka {
+  order: 1;
 }
 
 .faults-container {

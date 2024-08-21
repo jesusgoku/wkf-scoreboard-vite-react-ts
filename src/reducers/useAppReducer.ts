@@ -14,6 +14,16 @@ export interface AppState {
   aoFaults: number;
   senshu?: Color;
   winner?: Color | 'hikiwake';
+  tatami?: number;
+  displayTatami?: boolean;
+  category?: string;
+  displayCategory?: boolean;
+  aoPlayerName?: string;
+  akaPlayerName?: string;
+  displayPlayersName?: boolean;
+  aoNextPlayerName?: string;
+  akaNextPlayerName?: string;
+  displayNextPlayersName?: boolean;
 }
 
 export const initialAppState: AppState = {

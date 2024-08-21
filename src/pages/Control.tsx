@@ -89,7 +89,6 @@ export function Control() {
 
   return (
     <>
-      <h1>Control</h1>
       <div style={{ display: displaySettings ? 'block' : 'none' }}>
         <button
           onClick={() => {
@@ -144,35 +143,39 @@ export function Control() {
       </div>
 
       <div style={{ display: displaySettings ? 'none' : 'block' }}>
-        <button
-          onClick={() => {
-            setDisplaySetting(true);
-          }}
-        >
-          Settings
-        </button>
-        <p style={{ color: state.isTimerRunning ? 'green' : 'white' }}>
-          Time: {timeFormat(state.time)}
-        </p>
-        <button onClick={handleReset} disabled={state.isTimerRunning}>
-          Reset
-        </button>
-        <button onClick={handleTimeStart} disabled={state.isTimerRunning}>
-          Start
-        </button>
-        <button onClick={handleTimeEnd} disabled={!state.isTimerRunning}>
-          Stop
-        </button>
-        <button onClick={handleTimeAdd} disabled={state.isTimerRunning}>
-          +1
-        </button>
-        <button onClick={handleTimeSubtract} disabled={state.isTimerRunning}>
-          -1
-        </button>
-
         <div className="container">
+          <div className="timer-container">
+            <button
+              onClick={() => {
+                setDisplaySetting(true);
+              }}
+            >
+              Settings
+            </button>
+            <p style={{ color: state.isTimerRunning ? 'green' : 'white' }}>
+              Time: {timeFormat(state.time)}
+            </p>
+            <button onClick={handleReset} disabled={state.isTimerRunning}>
+              Reset
+            </button>
+            <button onClick={handleTimeStart} disabled={state.isTimerRunning}>
+              Start
+            </button>
+            <button onClick={handleTimeEnd} disabled={!state.isTimerRunning}>
+              Stop
+            </button>
+            <button onClick={handleTimeAdd} disabled={state.isTimerRunning}>
+              +1
+            </button>
+            <button
+              onClick={handleTimeSubtract}
+              disabled={state.isTimerRunning}
+            >
+              -1
+            </button>
+          </div>
           {SCOREBOARD_COLORS.map((color) => (
-            <div className="color-container">
+            <div className={`color-container ${color}`}>
               <h2>{color.toUpperCase()}</h2>
               <p>Score: {state[`${color}Score` as keyof AppState]}</p>
               <button
