@@ -6,6 +6,7 @@ import { SCOREBOARD_COLORS } from '../constants';
 import { Howl } from 'howler';
 import { useEffect, useState } from 'react';
 import timeoutSound from '../assets/timeout.mp3';
+import { usePrevious } from '../hooks/usePrevious';
 
 const sound = new Howl({
   src: [timeoutSound],
@@ -13,6 +14,7 @@ const sound = new Howl({
 
 export function Control() {
   const [state, dispatch] = useAppReducer();
+  const prevState = usePrevious(state);
   const [displaySettings, setDisplaySetting] = useState<boolean>(false);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export function Control() {
       sound.loop(false).play();
     }
 
-    if (state.playSounds && state.winner) {
+    if (state.playSounds && state.winner && prevState?.winner === undefined) {
       sound.loop(true).play();
 
       setTimeout(() => {
