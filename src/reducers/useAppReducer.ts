@@ -60,7 +60,15 @@ type AppStateAction =
   | BaseAction<'time-add', { value: number }>
   | BaseAction<'senshu', { color: Color }>
   | BaseAction<'score-add', { color: Color; value: number }>
-  | BaseAction<'faults-set', { color: Color; value: number }>;
+  | BaseAction<'faults-set', { color: Color; value: number }>
+  | BaseAction<'tatami-set', { value: number }>
+  | BaseAction<'display-tatami-toggle'>
+  | BaseAction<'category-set', { value: string }>
+  | BaseAction<'display-category-toggle'>
+  | BaseAction<'player-name-set', { color: Color; value: string }>
+  | BaseAction<'display-players-name-toggle'>
+  | BaseAction<'next-player-name-set', { color: Color; value: string }>
+  | BaseAction<'display-next-players-name-toggle'>;
 
 function reducer(state: AppState, action: AppStateAction): AppState {
   let nextState = state;
@@ -68,11 +76,10 @@ function reducer(state: AppState, action: AppStateAction): AppState {
   switch (action.type) {
     case 'reset':
       return {
+        ...state,
         ...initialAppState,
         time: state.matchTime,
         matchTime: state.matchTime,
-        atoshiBarakuTime: state.atoshiBarakuTime,
-        playSounds: state.playSounds,
       };
     case 'match-time-set':
       nextState = {
@@ -132,6 +139,54 @@ function reducer(state: AppState, action: AppStateAction): AppState {
           state.senshu === action.payload.color
             ? undefined
             : action.payload.color,
+      };
+      break;
+    case 'tatami-set':
+      nextState = {
+        ...state,
+        tatami: action.payload.value,
+      };
+      break;
+    case 'display-tatami-toggle':
+      nextState = {
+        ...state,
+        displayTatami: !state.displayTatami,
+      };
+      break;
+    case 'category-set':
+      nextState = {
+        ...state,
+        category: action.payload.value,
+      };
+      break;
+    case 'display-category-toggle':
+      nextState = {
+        ...state,
+        displayCategory: !state.displayCategory,
+      };
+      break;
+    case 'player-name-set':
+      nextState = {
+        ...state,
+        [`${action.payload.color}PlayerName`]: action.payload.value,
+      };
+      break;
+    case 'display-players-name-toggle':
+      nextState = {
+        ...state,
+        displayPlayersName: !state.displayPlayersName,
+      };
+      break;
+    case 'next-player-name-set':
+      nextState = {
+        ...state,
+        [`${action.payload.color}NextPlayerName`]: action.payload.value,
+      };
+      break;
+    case 'display-next-players-name-toggle':
+      nextState = {
+        ...nextState,
+        displayNextPlayersName: !state.displayNextPlayersName,
       };
       break;
     default:
