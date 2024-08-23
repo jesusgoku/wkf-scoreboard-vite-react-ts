@@ -94,8 +94,11 @@ export function Control() {
   }
 
   return (
-    <>
-      <div style={{ display: displaySettings ? 'block' : 'none' }}>
+    <div className="control">
+      <div
+        className="settings-container"
+        style={{ display: displaySettings ? 'block' : 'none' }}
+      >
         <button
           onClick={() => {
             setDisplaySetting(false);
@@ -374,6 +377,6 @@ export function Control() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -196,3 +196,36 @@ body {
     opacity: 0;
   }
 }
+
+/* --------------------------- */
+
+.control .container {
+  display: flex;
+  flex-direction: row;
+}
+
+.control .container > div {
+  flex: 1;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 10px;
+}
+
+.control .timer-container {
+  order: 1;
+}
+
+.control .color-container.ao {
+  order: 0;
+  background-color: var(--color-ao);
+}
+
+.control .color-container.aka {
+  order: 2;
+  background-color: var(--color-aka);
+}
+
+.control .settings-container {
+  width: 100vw;
+  text-align: center;
+}
