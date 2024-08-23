@@ -146,6 +146,127 @@ export function Control() {
             dispatch({ type: 'play-sounds-toggle' });
           }}
         />
+        <p>Tatami</p>
+        <input
+          name="tatami"
+          type="number"
+          defaultValue={1}
+          min={1}
+          step={1}
+          placeholder="Tatami"
+          value={state.tatami}
+          onChange={(e) => {
+            dispatch({
+              type: 'tatami-set',
+              payload: { value: parseInt(e.target.value, 10) },
+            });
+          }}
+        />
+        <p>Display Tatami</p>
+        <input
+          name="display-tatami"
+          type="checkbox"
+          placeholder="Display Tatami"
+          checked={state.displayTatami}
+          onChange={() => {
+            dispatch({ type: 'display-tatami-toggle' });
+          }}
+        />
+        <p>Category</p>
+        <input
+          name="category"
+          type="text"
+          placeholder="Category"
+          value={state.category}
+          onChange={(e) => {
+            dispatch({
+              type: 'category-set',
+              payload: { value: e.target.value },
+            });
+          }}
+        />
+        <p>Display Category</p>
+        <input
+          name="display-category"
+          type="checkbox"
+          placeholder="Display Category"
+          checked={state.displayCategory}
+          onChange={() => {
+            dispatch({ type: 'display-category-toggle' });
+          }}
+        />
+        <p>AO Player Name</p>
+        <input
+          name="ao-player-name"
+          type="text"
+          placeholder="AO Player Name"
+          value={state.aoPlayerName}
+          onChange={(e) => {
+            dispatch({
+              type: 'player-name-set',
+              payload: { color: 'ao', value: e.target.value },
+            });
+          }}
+        />
+        <p>AKA Player Name</p>
+        <input
+          name="aka-player-name"
+          type="text"
+          placeholder="AKA Player Name"
+          value={state.akaPlayerName}
+          onChange={(e) => {
+            dispatch({
+              type: 'player-name-set',
+              payload: { color: 'aka', value: e.target.value },
+            });
+          }}
+        />
+        <p>Display Players Name</p>
+        <input
+          name="display-players-name"
+          type="checkbox"
+          placeholder="Display Players Name"
+          checked={state.displayPlayersName}
+          onChange={() => {
+            dispatch({ type: 'display-players-name-toggle' });
+          }}
+        />
+        <p>AO Next Player Name</p>
+        <input
+          name="ao-next-player-name"
+          type="text"
+          placeholder="AO Next Player Name"
+          value={state.aoNextPlayerName}
+          onChange={(e) => {
+            dispatch({
+              type: 'next-player-name-set',
+              payload: { color: 'ao', value: e.target.value },
+            });
+          }}
+        />
+        <p>AKA Next Player Name</p>
+        <input
+          name="aka-next-player-name"
+          type="text"
+          placeholder="AKA Next Player Name"
+          value={state.akaNextPlayerName}
+          onChange={(e) => {
+            dispatch({
+              type: 'next-player-name-set',
+              payload: { color: 'aka', value: e.target.value },
+            });
+          }}
+        />
+        <p>Display Next Players Name</p>
+        <input
+          name="display-players-name"
+          type="checkbox"
+          placeholder="Display Players Name"
+          checked={state.displayNextPlayersName}
+          onChange={() => {
+            dispatch({ type: 'display-next-players-name-toggle' });
+          }}
+        />
       </div>
 
       <div style={{ display: displaySettings ? 'none' : 'block' }}>
